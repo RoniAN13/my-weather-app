@@ -25,7 +25,7 @@ development:
   <<: *default
   database: my_weather_app_development
   username: postgres
-  password: roni123
+  password: <%= ENV["postgres_password"] %>
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -60,7 +60,7 @@ test:
   <<: *default
   database: my_weather_app_test
   username: postgres
-  password: roni123
+  password: <%= ENV["postgres_password"] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -82,8 +82,9 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-# production:
-#   <<: *default
-#   database: my_weather_app_production
-#   username: my_weather_app
-#   password: <%= ENV["MY_WEATHER_APP_DATABASE_PASSWORD"] %>
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+  database: my_weather_app_production
+  username: my_weather_app
+  password: <%= ENV["MY_WEATHER_APP_DATABASE_PASSWORD"] %>

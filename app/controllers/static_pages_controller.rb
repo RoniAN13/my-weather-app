@@ -5,13 +5,13 @@ include StaticPagesHelper
   def home
     @searched_cities = SearchedCity.order("created_at DESC").limit(10)
     @subscriber = Subscriber.new
-    if !params[:search].present?
+    
       access_token = ENV["ipinfo_access_token"]
       handler = IPinfo::create(access_token)
       ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
       @details = handler.details(ip_address)
       @weather_info =   JSON.parse(get_weather(@details.latitude,@details.longitude))
-    end
+    
  
 
     if params[:search].present? && !params[:search].blank?

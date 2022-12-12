@@ -3,7 +3,14 @@ RSpec.describe 'Search for a city', type: :feature do
   before :each do
     SearchedCity.create!(city:"Beirut",country:"Lebanon",region:"Middle East",latitude:0.00,longitude:0.00,weather_description:"clear sky",temp:11.0,icon:"01f")
     @searched_cities = SearchedCity.order("created_at DESC").limit(10)
-    
+    access_token = ENV["ipinfo_access_token"]
+      handler = IPinfo::create(access_token)
+      ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+      @details = handler.details(ip_address)
+      url = "https://api.openweathermap.org/data/2.5/weather?lat=#{@details.latitude}&lon=#{@details.longitude}&units=metric&appid=#{ENV["open_weather_api_key"]}"
+    uri= URI(url)
+    res = Net::HTTP.get_response(uri)
+      @weather_info =   JSON.parse(res.body)
   end
     scenario "type a valid city" do
       
@@ -39,5 +46,23 @@ RSpec.describe 'Search for a city', type: :feature do
         expect(page).to have_text(searched_city.temp.to_i)
       
       end
+    end
+    scenario "subscribe to daily weather" do
+      visit root_path
+      fill_in "subscriber_email",with: "example@example.com"
+      click_on "Subscribe"
+      expect(page).to have_text("example@example.com subscribed successfully")
+    end
+    scenario "used email for subscribe to daily weather" do
+      visit root_path
+      fill_in "subscriber_email",with: "example@gmail.com"
+      click_on "Subscribe"
+      expect(page).to have_text("Email has already been taken")
+    end
+    scenario "invalid email for subscribe to daily weather" do
+      visit root_path
+      fill_in "subscriber_email",with: "example@gmail"
+      click_on "Subscribe"
+      expect(page).to have_text("Email is invalid")
     end
 end
