@@ -1,0 +1,8 @@
+<h2 class="text-center">Subscribe! and get a daily weather email</h2>
+<%= form_with model: @subscriber,data:{turbo:false},class:" text-center" do |f| %>
+
+    <%= f.hidden_field :latitude, :value => @details.latitude  %>
+    <%= f.hidden_field :longitude, :value => @details.longitude  %>
+    <%= f.email_field :email, placeholder:"Email", required: true,class:"form-control text-center",style:"width:300px;margin:auto" %>
+    <%= f.submit "Subscribe", class:"btn btn-dark mt-1 " %> 
+  <% end %>

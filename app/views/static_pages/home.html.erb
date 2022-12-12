@@ -1,0 +1,45 @@
+<%if !params[:search].present? %>
+<h2 class="text-center">Your current loacation weather</h2>
+<hr>
+    <%= render "static_pages/user_weather_info" %>
+    <%end%>
+    
+    <hr>
+    <h2 class="text-center">Search for a city</h2>
+    <hr>
+
+<%= form_with scope: :search,method: :get,local:true,data:{turbo:false},class:" text-center" do |f| %>
+   
+    <%= f.text_field :city_name,class:"form-control text-center",style:"width:300px;margin:auto",placeholder:"City Name" %><br>
+    <%= f.submit "Search",class:"btn btn-dark mt-3 btn-lg justify-content-center"  %>
+<%end%>
+<% if @data && @data.any? %>
+
+<%= render "static_pages/weather_info" %>
+<% elsif params[:search].present? %>
+<h2 class="text-center">No such city name</h2>
+<%end%>
+
+<hr>
+<h2 class="text-center"> Past 10 Searches </h2>
+<hr>
+
+
+
+<div class="box">
+        
+<% @searched_cities.each do |searched_city| %>
+
+
+<%= render partial:"static_pages/past_info" , locals:{ searched_city:searched_city} %>
+
+<%end%>
+
+
+</div>
+<hr>
+
+
+
+
+<%= render "form" %>

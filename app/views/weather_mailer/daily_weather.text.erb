@@ -1,0 +1,14 @@
+Your daily weather  
+===============================================
+
+Location: <%=@details.city %>,<%=@details.country %>
+
+Temperature: <%= @weather_info["main"]["temp"].to_i %> °C
+
+Weather Description: <%= @weather_info["weather"][0]["description"].capitalize %>
+
+Date: <%= Time.now.strftime("%A,%m,%Y") %>
+
+
+===============================================
+You can visit the following URL to unsubscribe: <%= unsubscribe_url(email: @subscriber.email) %>

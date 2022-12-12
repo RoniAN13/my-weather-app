@@ -1,0 +1,24 @@
+@import "bootstrap";
+td {
+
+padding: 10px;
+font-size: 15px;
+text-align: center;
+
+}
+.wicon{
+    display:block;
+    margin:auto
+}
+body{
+    padding: 30px;
+}
+.box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px ;
+  }
+  
+  .box :first-child {
+      align-self: center;
+  }

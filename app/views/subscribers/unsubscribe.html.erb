@@ -1,0 +1,3 @@
+<p>Are you sure you want to unsubscribe <strong><%= @subscriber.email %></strong> from daily weather?</p>
+  <%= button_to "Unsubscribe", { controller: "subscribers", action: "destroy", id: @subscriber.id }, method: :delete, class:"btn btn-dark" %>
+</div>
