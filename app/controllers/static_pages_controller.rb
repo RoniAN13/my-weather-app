@@ -8,7 +8,9 @@ include StaticPagesHelper
     
       access_token = ENV["ipinfo_access_token"]
       handler = IPinfo::create(access_token)
-      ip_address = request.ip
+      response = open('https://jsonip.com/').read
+      data = JSON.parse(response)
+      ip_address = data['ip']
       @details = handler.details(ip_address)
       @weather_info =   JSON.parse(get_weather(@details.latitude,@details.longitude))
     
