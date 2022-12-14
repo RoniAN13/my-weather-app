@@ -7,7 +7,6 @@ class SubscribersController < ApplicationController
       
         if @subscriber.save
           flash[:notice] = "#{@subscriber.email} subscribed successfully"
-          
           redirect_to root_path
         else
           flash[:alert] = @subscriber.errors.full_messages[0]
