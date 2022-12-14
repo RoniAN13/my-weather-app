@@ -8,7 +8,7 @@ include StaticPagesHelper
     
       access_token = ENV["ipinfo_access_token"]
       handler = IPinfo::create(access_token)
-      ip_address = (request.remote_ip).to_s
+      ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
       @details = handler.details(ip_address)
       @weather_info =   JSON.parse(get_weather(@details.latitude,@details.longitude))
     
