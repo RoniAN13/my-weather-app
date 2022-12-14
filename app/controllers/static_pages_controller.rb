@@ -6,6 +6,9 @@ include StaticPagesHelper
     @searched_cities = SearchedCity.order("created_at DESC").limit(10)
     @subscriber = Subscriber.new
     
+      access_token = ENV["ipinfo_access_token"]
+      handler = IPinfo::create(access_token)
+      
       ip_address = request.remote_ip
       @details = handler.details(ip_address)
       @weather_info =   JSON.parse(get_weather(@details.latitude,@details.longitude))
