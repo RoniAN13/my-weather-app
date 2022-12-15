@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.hosts << "my-weather-app-tvg9.onrender.com"
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -65,7 +65,20 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: 'https://my-weather-app-tvg9.onrender.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    address:          'smtp.gmail.com',
+    port:             587,
+    domain:           'my-weather-app-tvg9.onrender.com',
+    user_name:        'roni.1999.ram@gmail.com',
+    password:         ENV["GMAIL_PASS"] ,
+    authentication:   'plain',
+    enable_starttls_auto: true } 
 
+
+  
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
