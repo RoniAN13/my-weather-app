@@ -3,7 +3,7 @@ class WeatherMailer < ApplicationMailer
         @subscriber = subscriber
         @details = details
         @weather_info = weather_info
-        bootstrap_mail(to: @subscriber.email, subject: "Daily weather")
+        mail(to: @subscriber.email, subject: "Daily weather")
       
       end
      
